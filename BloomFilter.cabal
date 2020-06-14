@@ -1,0 +1,82 @@
+cabal-version: >= 1.10
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: c09c1d8962d97884c413fb3e889c8c8057ffd01c3c3706bfcd86b8302352760e
+
+name:           BloomFilter
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/BloomFilter#readme>
+homepage:       https://github.com/githubuser/BloomFilter#readme
+bug-reports:    https://github.com/githubuser/BloomFilter/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2020 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/BloomFilter
+
+library
+  exposed-modules:
+      BloomFilter
+      Hash
+      Internal
+      Lib
+      Mutable
+      Easy
+  other-modules:
+      Paths_BloomFilter
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5,
+      bytestring,
+      array
+  ghc-options: -O2 -Wall
+  c-sources: src/cbits/lookup3.c
+  cc-options: -O3
+  include-dirs: src/cbits
+  includes: lookup3.h
+  install-includes: lookup3.h
+  ghc-prof-options: -auto-all
+  default-language: Haskell2010
+
+executable BloomFilter-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_BloomFilter
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      BloomFilter
+    , base >=4.7 && <5
+  default-language: Haskell2010
+
+test-suite BloomFilter-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_BloomFilter
+      BloomCheck
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      BloomFilter
+    , base >=4.7 && <5
+    , QuickCheck >= 2.13
+    , hspec
+    , hspec-core
+    , random
+    , bytestring
+  default-language: Haskell2010
